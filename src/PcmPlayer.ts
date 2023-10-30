@@ -57,8 +57,13 @@ export class PcmPlayer {
       )
     }
 
+    let processorSource = await fetch('audio.worklet.js')
+
+    //const processorSource = fs.readFileSync(processorPath); // just a promisified version of fs.readFile
+    const processorBlob = new Blob([processorSource.toString()], { type: 'text/javascript' });
+    const processorURL = URL.createObjectURL(processorBlob);
     await this.context.audioWorklet.addModule(
-      new URL('./audio.worklet.js', import.meta.url),
+      new URL(processorSource.url),
     )
 
     this.worklet = new AudioWorkletNode(this.context, this.workletName, {
