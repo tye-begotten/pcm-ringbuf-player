@@ -22,7 +22,7 @@ export class PcmPlayer {
       sampleRate,
     })
     this.gainNode = this.context.createGain()
-    this.gainNode.gain.value = 1
+    this.gainNode.gain.value = .6
     this.gainNode.connect(this.context.destination)
     this.channels = channels
   }
